@@ -42,7 +42,11 @@ if(WIN32 AND BUILD_SHARED_LIBS)
 endif()
 
 if(ZFP_WITH_CUDA)
-  target_link_libraries(zfp PRIVATE ${CUDA_CUDART_LIBRARY} stdc++)
+  if(WIN32)
+    target_link_libraries(zfp PRIVATE ${CUDA_CUDART_LIBRARY})
+  else()
+    target_link_libraries(zfp PRIVATE ${CUDA_CUDART_LIBRARY} stdc++)
+  endif()
 endif()
 
 target_compile_definitions(zfp
